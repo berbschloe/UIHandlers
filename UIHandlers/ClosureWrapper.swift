@@ -36,3 +36,12 @@ internal class ClosureWrapper {
         closure(sender)
     }
 }
+
+extension UIView {
+
+    internal static var handlersKey: UInt8 = 0
+    internal var handlers: [ClosureWrapper] {
+        get { return objc_getAssociatedObject(self, &UIControl.handlersKey) as? [ClosureWrapper] ?? [] }
+        set { return objc_setAssociatedObject(self, &UIControl.handlersKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN) }
+    }
+}

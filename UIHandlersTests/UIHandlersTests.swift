@@ -57,6 +57,17 @@ class UIHandlersTests: XCTestCase {
 
         waitForExpectations(timeout: 0, handler: nil)
     }
+
+    func testGestureRecognizers() {
+
+        let view = UIView()
+
+        _ = autoreleasepool {
+            view.addTapHandler { _ in }
+        }
+
+        XCTAssertEqual(view.handlers.count, 1)
+    }
 }
 
 /// Unfortunately, there's an apparent limitation in using `sendActionsForControlEvents` on unit-tests.

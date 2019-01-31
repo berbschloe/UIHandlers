@@ -27,8 +27,10 @@ extension UIView {
 
     /// Attaches a tap gesture recognizer to the view.
     @discardableResult
-    public func addTapHandler(_ handler: @escaping (UITapGestureRecognizer) -> Void) -> UITapGestureRecognizer {
-        return addHandler(handler: handler)
+    public func addTapHandler(numberOfTapsRequired: Int = 1, handler: @escaping (UITapGestureRecognizer) -> Void) -> UITapGestureRecognizer {
+        let recognizer = addHandler(handler: handler)
+        recognizer.numberOfTapsRequired = numberOfTapsRequired
+        return recognizer
     }
 
     /// Attaches a long press gesture recognizer to the view.
@@ -78,6 +80,7 @@ extension UIView {
         }
         let recognizer = T(target: wrapper, action: #selector(ClosureWrapper.invoke(sender:)))
         addGestureRecognizer(recognizer)
+        self.handlers += [wrapper]
         return recognizer
     }
 }

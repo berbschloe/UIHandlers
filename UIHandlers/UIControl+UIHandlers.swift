@@ -26,6 +26,8 @@ import UIKit
 /// The base protocol that allows for `Self` to be used when adding handlers.
 public protocol ControlHandler {}
 
+extension UIControl: ControlHandler {}
+
 extension ControlHandler where Self: UIControl {
 
     /**
@@ -58,16 +60,5 @@ extension ControlHandler where Self: UIControl {
         addHandler(for: controlEvents) { _ in
             handler()
         }
-    }
-}
-
-extension UIControl: ControlHandler {}
-
-extension UIControl {
-
-    internal static var handlersKey: UInt8 = 0
-    internal var handlers: [ClosureWrapper] {
-        get { return objc_getAssociatedObject(self, &UIControl.handlersKey) as? [ClosureWrapper] ?? [] }
-        set { return objc_setAssociatedObject(self, &UIControl.handlersKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN) }
     }
 }
