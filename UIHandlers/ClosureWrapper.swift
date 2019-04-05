@@ -39,15 +39,15 @@ internal class ClosureWrapper {
 
 internal class ClosureWrapper2 {
 
-    private let closuer: (Any, Any) -> Void
+    private let closure: (Any, Any) -> Void
 
-    init(closuer: @escaping (Any, Any) -> Void) {
-        self.closuer = closuer
+    init(closure: @escaping (Any, Any) -> Void) {
+        self.closure = closure
     }
 
     @objc
     func invoke(arg1: Any, arg2: Any) {
-        closuer(arg1, arg2)
+        closure(arg1, arg2)
     }
 }
 
