@@ -94,7 +94,6 @@ public class HandlerToken {
     private let action: Selector
     private let controlEvents: UIControl.Event
 
-
     internal init(control: UIControl, target: AnyObject, action: Selector, controlEvents: UIControl.Event) {
         self.control = control
         self.target = target
