@@ -27,21 +27,35 @@ internal class ClosureWrapper {
 
     private let closure: (Any) -> Void
 
-    init(_ closure: @escaping (Any) -> Void) {
+    init(closure: @escaping (Any) -> Void) {
         self.closure = closure
     }
 
     @objc
-    func invoke(sender: Any) {
-        closure(sender)
+    func invoke(arg: Any) {
+        closure(arg)
+    }
+}
+
+internal class ClosureWrapper2 {
+
+    private let closuer: (Any, Any) -> Void
+
+    init(closuer: @escaping (Any, Any) -> Void) {
+        self.closuer = closuer
+    }
+
+    @objc
+    func invoke(arg1: Any, arg2: Any) {
+        closuer(arg1, arg2)
     }
 }
 
 extension UIView {
 
     internal static var handlersKey: UInt8 = 0
-    internal var handlers: [ClosureWrapper] {
-        get { return objc_getAssociatedObject(self, &UIControl.handlersKey) as? [ClosureWrapper] ?? [] }
+    internal var handlers: [AnyObject] {
+        get { return objc_getAssociatedObject(self, &UIControl.handlersKey) as? [AnyObject] ?? [] }
         set { return objc_setAssociatedObject(self, &UIControl.handlersKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN) }
     }
 }

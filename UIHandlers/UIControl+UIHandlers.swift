@@ -24,6 +24,7 @@
 import UIKit
 
 /// The base protocol that allows for `Self` to be used when adding handlers.
+
 public protocol ControlHandler {}
 
 extension UIControl: ControlHandler {}
@@ -36,15 +37,36 @@ extension ControlHandler where Self: UIControl {
      The handler is strongly retained by the `UIControl`.
 
      - Parameters:
+     - controlEvents: A bitmask specifying the control-specific events for which the action method is called. Always specify at least one constant.
+     - handler: A handler to be invoked when the condition for the control events are met.
+     */
+
+    @discardableResult
+    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping (Self, UIEvent) -> Void) -> HandlerToken {
+        let wrapper = ClosureWrapper2 {
+            handler($0 as! Self, $1 as! UIEvent) //swiftlint:disable:this force_cast
+        }
+        let action = #selector(ClosureWrapper2.invoke(arg1:arg2:))
+        addTarget(wrapper, action: action, for: controlEvents)
+        self.handlers += [wrapper]
+
+        return HandlerToken(control: self, target: wrapper, action: action, controlEvents: controlEvents)
+    }
+
+    /**
+     Adds a handler to be envoked to when a spefic set of control events are triggerd.
+     Remeber to use `[unkowned self]` or `[weak self]` when referencing `self` or other targets inside the handler to prevent memory leaks.
+     The handler is strongly retained by the `UIControl`.
+
+     - Parameters:
         - controlEvents: A bitmask specifying the control-specific events for which the action method is called. Always specify at least one constant.
         - handler: A handler to be invoked when the condition for the control events are met.
     */
-    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping (Self) -> Void) {
-        let wrapper = ClosureWrapper {
-            handler($0 as! Self) //swiftlint:disable:this force_cast
+    @discardableResult
+    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping (Self) -> Void) -> HandlerToken {
+        return addHandler(for: controlEvents) { (sender, _) in
+            handler(sender)
         }
-        addTarget(wrapper, action: #selector(ClosureWrapper.invoke), for: controlEvents)
-        self.handlers += [wrapper]
     }
 
     /**
@@ -56,9 +78,32 @@ extension ControlHandler where Self: UIControl {
         - controlEvents: A bitmask specifying the control-specific events for which the action method is called. Always specify at least one constant.
         - handler: A handler to be invoked when the condition for the control events are met.
      */
-    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping () -> Void) {
-        addHandler(for: controlEvents) { _ in
+
+    @discardableResult
+    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping () -> Void) -> HandlerToken {
+        return addHandler(for: controlEvents) { _ in
             handler()
         }
+    }
+}
+
+public class HandlerToken {
+
+    private let control: UIControl
+    private let target: AnyObject
+    private let action: Selector
+    private let controlEvents: UIControl.Event
+
+
+    internal init(control: UIControl, target: AnyObject, action: Selector, controlEvents: UIControl.Event) {
+        self.control = control
+        self.target = target
+        self.action = action
+        self.controlEvents = controlEvents
+    }
+
+    public func removeTarget() {
+        control.handlers.removeAll { $0 === target }
+        control.removeTarget(target, action: action, for: controlEvents)
     }
 }
