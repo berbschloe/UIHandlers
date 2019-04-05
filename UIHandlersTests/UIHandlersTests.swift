@@ -98,6 +98,6 @@ extension UIControl {
 
     // MARK: - Method Swizzling
     @objc private func swizzle_sendAction(_ action: Selector, to target: AnyObject?, forEvent event: UIEvent?) {
-        _ = target?.perform(action, with: self)
+        _ = target?.perform(action, with: self, with: UIEvent())
     }
 }
