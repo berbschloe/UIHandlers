@@ -33,47 +33,123 @@ extension UIView {
         return recognizer
     }
 
+    /// Attaches a tap gesture recognizer to the view.
+    @discardableResult
+    public func addTapHandler(numberOfTapsRequired: Int = 1, handler: @escaping () -> Void) -> UITapGestureRecognizer {
+        return addTapHandler(numberOfTapsRequired: numberOfTapsRequired) { _ in handler() }
+    }
+}
+
+extension UIView {
+
+    /// Attaches a tap gesture recognizer to the view with numberOfTapsRequired set to 2.
+    @discardableResult
+    public func addDoubleTapHandler(handler: @escaping (UITapGestureRecognizer) -> Void) -> UITapGestureRecognizer {
+        return addTapHandler(numberOfTapsRequired: 2, handler: handler)
+    }
+
+    /// Attaches a tap gesture recognizer to the view with numberOfTapsRequired set to 2.
+    @discardableResult
+    public func addDoubleTapHandler(handler: @escaping () -> Void) -> UITapGestureRecognizer {
+        return addDoubleTapHandler { _ in handler()}
+    }
+}
+
+extension UIView {
+
     /// Attaches a long press gesture recognizer to the view.
     @discardableResult
-    public func addLongPressHandler(_ handler: @escaping (UILongPressGestureRecognizer) -> Void) -> UILongPressGestureRecognizer {
+    public func addLongPressHandler(handler: @escaping (UILongPressGestureRecognizer) -> Void) -> UILongPressGestureRecognizer {
        return addHandler(handler: handler)
+    }
+
+    /// Attaches a long press gesture recognizer to the view.
+    @discardableResult
+    public func addLongPressHandler(handler: @escaping () -> Void) -> UILongPressGestureRecognizer {
+        return addLongPressHandler { _ in handler() }
+    }
+}
+
+extension UIView {
+
+    /// Attaches a pan gesture recognizer to the view.
+    @discardableResult
+    public func addPanHandler(handler: @escaping (UIPanGestureRecognizer) -> Void) -> UIPanGestureRecognizer {
+        return addHandler(handler: handler)
     }
 
     /// Attaches a pan gesture recognizer to the view.
     @discardableResult
-    public func addPanHandler(_ handler: @escaping (UIPanGestureRecognizer) -> Void) -> UIPanGestureRecognizer {
-        return addHandler(handler: handler)
+    public func addPanHandler(handler: @escaping () -> Void) -> UIPanGestureRecognizer {
+        return addPanHandler { _ in handler() }
     }
+}
+
+extension UIView {
 
     /// Attaches a swipe gesture recognizer to the view.
     @discardableResult
-    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction = .right, _ handler: @escaping (UISwipeGestureRecognizer) -> Void) -> UISwipeGestureRecognizer {
+    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction = .right, handler: @escaping (UISwipeGestureRecognizer) -> Void) -> UISwipeGestureRecognizer {
         let recognizer = addHandler(handler: handler)
         recognizer.direction = direction
         return recognizer
     }
 
+    /// Attaches a swipe gesture recognizer to the view.
+    @discardableResult
+    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction = .right, handler: @escaping () -> Void) -> UISwipeGestureRecognizer {
+        return addSwipeHandler(direction: direction) { _ in handler() }
+    }
+}
+
+extension UIView {
+
     /// Attaches a pinch gesture recognizer to the view.
     @discardableResult
-    public func addPinchHandler(_ handler: @escaping (UIPinchGestureRecognizer) -> Void) -> UIPinchGestureRecognizer {
+    public func addPinchHandler(handler: @escaping (UIPinchGestureRecognizer) -> Void) -> UIPinchGestureRecognizer {
+        return addHandler(handler: handler)
+    }
+
+    /// Attaches a pinch gesture recognizer to the view.
+    @discardableResult
+    public func addPinchHandler(handler: @escaping () -> Void) -> UIPinchGestureRecognizer {
+        return addPinchHandler { _ in handler() }
+    }
+}
+
+extension UIView {
+    /// Attaches a rotation gesture recognizer to the view.
+    @discardableResult
+    public func addRotationHandler(handler: @escaping (UIRotationGestureRecognizer) -> Void) -> UIRotationGestureRecognizer {
         return addHandler(handler: handler)
     }
 
     /// Attaches a rotation gesture recognizer to the view.
     @discardableResult
-    public func addRotationHandler(_ handler: @escaping (UIRotationGestureRecognizer) -> Void) -> UIRotationGestureRecognizer {
-        return addHandler(handler: handler)
+    public func addRotationHandler(handler: @escaping () -> Void) -> UIRotationGestureRecognizer {
+        return addRotationHandler { _ in handler() }
     }
+}
+
+extension UIView {
 
     /// Attaches a screen edge pan gesture recognizer to the view.
     @discardableResult
-    public func addScreenEdgePanHandler(edges: UIRectEdge = .all, _ handler: @escaping (UIScreenEdgePanGestureRecognizer) -> Void) -> UIScreenEdgePanGestureRecognizer {
+    public func addScreenEdgePanHandler(edges: UIRectEdge = .all, handler: @escaping (UIScreenEdgePanGestureRecognizer) -> Void) -> UIScreenEdgePanGestureRecognizer {
         let recognizer = addHandler(handler: handler)
         recognizer.edges = edges
         return recognizer
     }
 
+    /// Attaches a screen edge pan gesture recognizer to the view.
     @discardableResult
+    public func addScreenEdgePanHandler(edges: UIRectEdge = .all, handler: @escaping () -> Void) -> UIScreenEdgePanGestureRecognizer {
+        return addScreenEdgePanHandler(edges: edges) { _ in handler() }
+    }
+}
+
+extension UIView {
+
     private func addHandler<T: UIGestureRecognizer>(handler: @escaping (T) -> Void) -> T {
         let wrapper = ClosureWrapper {
             handler($0 as! T) //swiftlint:disable:this force_cast

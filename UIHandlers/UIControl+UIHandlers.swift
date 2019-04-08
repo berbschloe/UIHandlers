@@ -42,7 +42,7 @@ extension ControlHandler where Self: UIControl {
      */
 
     @discardableResult
-    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping (Self, UIEvent) -> Void) -> HandlerToken {
+    public func addHandler(for controlEvents: UIControl.Event, handler: @escaping (Self, UIEvent) -> Void) -> HandlerToken {
         let wrapper = ClosureWrapper2 {
             handler($0 as! Self, $1 as! UIEvent) //swiftlint:disable:this force_cast
         }
@@ -63,7 +63,7 @@ extension ControlHandler where Self: UIControl {
         - handler: A handler to be invoked when the condition for the control events are met.
     */
     @discardableResult
-    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping (Self) -> Void) -> HandlerToken {
+    public func addHandler(for controlEvents: UIControl.Event, handler: @escaping (Self) -> Void) -> HandlerToken {
         return addHandler(for: controlEvents) { (sender, _) in
             handler(sender)
         }
@@ -80,7 +80,7 @@ extension ControlHandler where Self: UIControl {
      */
 
     @discardableResult
-    public func addHandler(for controlEvents: UIControl.Event, _ handler: @escaping () -> Void) -> HandlerToken {
+    public func addHandler(for controlEvents: UIControl.Event, handler: @escaping () -> Void) -> HandlerToken {
         return addHandler(for: controlEvents) { _ in
             handler()
         }
