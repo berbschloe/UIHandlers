@@ -43,14 +43,11 @@ extension ControlHandler where Self: UIControl {
 
     @discardableResult
     public func addHandler(for controlEvents: UIControl.Event, handler: @escaping (Self, UIEvent) -> Void) -> HandlerToken {
-        let wrapper = ClosureWrapper2 {
-            handler($0 as! Self, $1 as! UIEvent) //swiftlint:disable:this force_cast
-        }
-        let action = #selector(ClosureWrapper2.invoke(arg1:arg2:))
-        addTarget(wrapper, action: action, for: controlEvents)
-        self.handlers += [wrapper]
-
-        return HandlerToken(control: self, target: wrapper, action: action, controlEvents: controlEvents)
+        return _addTarget(
+            ClosureWrapper2 { handler($0 as! Self, $1 as! UIEvent) }, //swiftlint:disable:this force_cast
+            action: #selector(ClosureWrapper2.invoke),
+            for: controlEvents
+        )
     }
 
     /**
@@ -64,9 +61,11 @@ extension ControlHandler where Self: UIControl {
     */
     @discardableResult
     public func addHandler(for controlEvents: UIControl.Event, handler: @escaping (Self) -> Void) -> HandlerToken {
-        return addHandler(for: controlEvents) { (sender, _) in
-            handler(sender)
-        }
+        return _addTarget(
+            ClosureWrapper1 { handler($0 as! Self) }, //swiftlint:disable:this force_cast
+            action: #selector(ClosureWrapper1.invoke),
+            for: controlEvents
+        )
     }
 
     /**
@@ -81,9 +80,17 @@ extension ControlHandler where Self: UIControl {
 
     @discardableResult
     public func addHandler(for controlEvents: UIControl.Event, handler: @escaping () -> Void) -> HandlerToken {
-        return addHandler(for: controlEvents) { _ in
-            handler()
-        }
+        return _addTarget(
+            ClosureWrapper { handler() },
+            action: #selector(ClosureWrapper.invoke),
+            for: controlEvents
+        )
+    }
+
+    private func _addTarget(_ target: AnyObject, action: Selector, for controlEvents: UIControl.Event) -> HandlerToken {
+        addTarget(target, action: action, for: controlEvents)
+        self.handlers += [target]
+        return HandlerToken(control: self, target: target, action: action, controlEvents: controlEvents)
     }
 }
 

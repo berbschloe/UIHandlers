@@ -151,10 +151,10 @@ extension UIView {
 extension UIView {
 
     private func addHandler<T: UIGestureRecognizer>(handler: @escaping (T) -> Void) -> T {
-        let wrapper = ClosureWrapper {
+        let wrapper = ClosureWrapper1 {
             handler($0 as! T) //swiftlint:disable:this force_cast
         }
-        let recognizer = T(target: wrapper, action: #selector(ClosureWrapper.invoke(arg:)))
+        let recognizer = T(target: wrapper, action: #selector(ClosureWrapper1.invoke(arg:)))
         addGestureRecognizer(recognizer)
         self.handlers += [wrapper]
         return recognizer

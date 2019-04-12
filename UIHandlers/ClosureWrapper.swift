@@ -25,6 +25,20 @@ import Foundation
 
 internal class ClosureWrapper {
 
+    private let closure: () -> Void
+
+    init(closure: @escaping () -> Void) {
+        self.closure = closure
+    }
+
+    @objc
+    func invoke() {
+        closure()
+    }
+}
+
+internal class ClosureWrapper1 {
+
     private let closure: (Any) -> Void
 
     init(closure: @escaping (Any) -> Void) {
