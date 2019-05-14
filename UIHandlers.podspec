@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
     s.platform = :ios, "9.0"
     s.source = { :git => "https://github.com/berbschloe/UIHandlers.git", :tag => "1.2.1" }
     s.source_files = "UIHandlers/**/*.{h,m,swift}"
-    s.swift_version = "4.2"
+    s.swift_version = "5.0"
 end
