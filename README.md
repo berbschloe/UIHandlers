@@ -5,7 +5,7 @@ Adds closure support to UIControls and UIViews with UIGestureRecognizers.
 
 - iOS 9.0+
 - Xcode 10.2+
-- Swift 5+
+- Swift 5.0+
 
 ## Instalation
 
@@ -28,6 +28,14 @@ dependencies: [
 ```
 
 ## Usage
+
+### Importing
+It would be recommended to add UIHandlers globally because it can get annoying importing it everywhere.
+
+```swift
+// Add this to a GlobalImports.swift
+@_exported import UIHandlers
+```
 
 ### Normal way of listening to UIControl Events
 
@@ -53,6 +61,7 @@ func viewDidLoad() {
     
     let button = UIButton()
 
+    // [unowned self] is needed to prevent reference cycles
     button.addHandler(for: .primaryActionTriggered) { [unowned self] in
         self.doSomething();
     }
