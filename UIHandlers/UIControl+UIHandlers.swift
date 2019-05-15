@@ -23,8 +23,7 @@
 
 import UIKit
 
-/// The base protocol that allows for `Self` to be used when adding handlers.
-
+/// A base protocol that allows for `Self` to be used when adding handlers.
 public protocol ControlHandler {}
 
 extension UIControl: ControlHandler {}
@@ -108,6 +107,7 @@ public class HandlerToken {
         self.controlEvents = controlEvents
     }
 
+    /// Call this to stop receving events with the supplied control event.
     public func removeTarget() {
         control.handlers.removeAll { $0 === target }
         control.removeTarget(target, action: action, for: controlEvents)

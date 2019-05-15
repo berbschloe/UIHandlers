@@ -118,6 +118,7 @@ extension UIView {
 }
 
 extension UIView {
+    
     /// Attaches a rotation gesture recognizer to the view.
     @discardableResult
     public func addRotationHandler(handler: @escaping (UIRotationGestureRecognizer) -> Void) -> UIRotationGestureRecognizer {
