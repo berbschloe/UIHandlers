@@ -89,7 +89,7 @@ extension UIView {
 
     /// Attaches a swipe gesture recognizer to the view.
     @discardableResult
-    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction = .right, handler: @escaping (UISwipeGestureRecognizer) -> Void) -> UISwipeGestureRecognizer {
+    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction, handler: @escaping (UISwipeGestureRecognizer) -> Void) -> UISwipeGestureRecognizer {
         let recognizer = addHandler(handler: handler)
         recognizer.direction = direction
         return recognizer
@@ -97,7 +97,7 @@ extension UIView {
 
     /// Attaches a swipe gesture recognizer to the view.
     @discardableResult
-    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction = .right, handler: @escaping () -> Void) -> UISwipeGestureRecognizer {
+    public func addSwipeHandler(direction: UISwipeGestureRecognizer.Direction, handler: @escaping () -> Void) -> UISwipeGestureRecognizer {
         return addSwipeHandler(direction: direction) { _ in handler() }
     }
 }
@@ -136,7 +136,7 @@ extension UIView {
 
     /// Attaches a screen edge pan gesture recognizer to the view.
     @discardableResult
-    public func addScreenEdgePanHandler(edges: UIRectEdge = .all, handler: @escaping (UIScreenEdgePanGestureRecognizer) -> Void) -> UIScreenEdgePanGestureRecognizer {
+    public func addScreenEdgePanHandler(edges: UIRectEdge, handler: @escaping (UIScreenEdgePanGestureRecognizer) -> Void) -> UIScreenEdgePanGestureRecognizer {
         let recognizer = addHandler(handler: handler)
         recognizer.edges = edges
         return recognizer
@@ -144,7 +144,7 @@ extension UIView {
 
     /// Attaches a screen edge pan gesture recognizer to the view.
     @discardableResult
-    public func addScreenEdgePanHandler(edges: UIRectEdge = .all, handler: @escaping () -> Void) -> UIScreenEdgePanGestureRecognizer {
+    public func addScreenEdgePanHandler(edges: UIRectEdge, handler: @escaping () -> Void) -> UIScreenEdgePanGestureRecognizer {
         return addScreenEdgePanHandler(edges: edges) { _ in handler() }
     }
 }
