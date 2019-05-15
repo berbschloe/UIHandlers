@@ -14,7 +14,7 @@ Adds closure support to UIControls and UIViews with UIGestureRecognizers.
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Alamofire into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'UIHandlers', '1.3.0'
+pod 'UIHandlers', '1.4.0'
 ```
 
 ### Swift Package Manager
