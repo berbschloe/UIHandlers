@@ -29,7 +29,7 @@ dependencies: [
 
 ## Usage
 
-### Importing
+#### Importing
 It would be recommended to add UIHandlers globally because it can get annoying importing it everywhere.
 
 ```swift
@@ -37,7 +37,9 @@ It would be recommended to add UIHandlers globally because it can get annoying i
 @_exported import UIHandlers
 ```
 
-### Normal way of listening to UIControl Events
+### Adding Event Handlers to Controls
+
+#### Normal way of Listening to Control Events
 
 ```swift
 func viewDidLoad() {
@@ -50,10 +52,9 @@ func viewDidLoad() {
 
 @objc
 private func doSomething() { ... }
-
 ```
 
-### Adding a handler to UIControl instead
+#### Adding a Handler to Control Instead
 
 ```swift
 func viewDidLoad() {
@@ -66,4 +67,65 @@ func viewDidLoad() {
         self.doSomething();
     }
 }
+```
+
+#### Adding a Handler with Multiple Paramaters
+
+```swift
+button.addHandler(for: .primaryActionTriggered) { ... }
+button.addHandler(for: .primaryActionTriggered) ( (sender: UIButton) in ... }
+button.addHandler(for: .primaryActionTriggered) ( (sender: UIButton, event: UIEvent) in ... }
+```
+### Adding Handlers for Gesture Recognizers to a View
+
+#### Normal way of Adding Gesture Recognizer to a View
+
+```swift
+func viewDidLoad() {
+    super.viewDidLoad()
+    
+    let view = UIView()
+
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(doSomething))
+    view.addGestureRecognizer(gesture)
+}
+
+@objc
+private func doSomething() { ... }
+```
+
+#### Adding a Tap Gesture Recognizer to a View
+
+```swift
+func viewDidLoad() {
+    super.viewDidLoad()
+    
+    let view = UIView()
+    
+    view.addTapHandler() { [unowned self] in
+        self.doSomething()
+    }
+}
+```
+
+#### More Variants of Adding a Tap Gesture
+
+```swift
+// tap handler with paramater
+view.addTapHandler() { (gesture: UITapGestureRecognizer) in ... }
+
+// controling the number of taps
+view.addTapHandler(numberOfTapsRequired: 42) { ... }
+```
+
+#### Other Suported Gesture Recognizers
+
+```swift
+view.addDoubleTapHandler() { ... }
+view.addLongPressHandler() { ... }
+view.addPanHandler() { ... }
+view.addSwipeHandler(direction: .right) { ... }
+view.addPinchHandler() { ... }
+view.addRotationHandler() { ... }
+view.addScreenEdgePanHandler(edges: .right) { ... } 
 ```
