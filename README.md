@@ -30,7 +30,7 @@ dependencies: [
 ## Usage
 
 #### Importing
-It would be recommended to add UIHandlers globally because it can get annoying importing it everywhere.
+It would be recommended to add the library globally because it can get annoying importing it everywhere.
 
 ```swift
 // Add this to a GlobalImports.swift
