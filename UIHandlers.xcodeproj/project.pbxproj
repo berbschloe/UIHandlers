@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		772C7CAE23A3E710008A0F58 /* UIBarButtonItem+UIHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772C7CAD23A3E710008A0F58 /* UIBarButtonItem+UIHandlers.swift */; };
 		77C5A94421BEE67D001FED21 /* UIHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C5A93A21BEE67D001FED21 /* UIHandlers.framework */; };
 		77C5A94921BEE67D001FED21 /* UIHandlersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C5A94821BEE67D001FED21 /* UIHandlersTests.swift */; };
 		77C5A94B21BEE67D001FED21 /* UIHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 77C5A93D21BEE67D001FED21 /* UIHandlers.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		772C7CAD23A3E710008A0F58 /* UIBarButtonItem+UIHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+UIHandlers.swift"; sourceTree = "<group>"; };
 		77C5A93A21BEE67D001FED21 /* UIHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77C5A93D21BEE67D001FED21 /* UIHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIHandlers.h; sourceTree = "<group>"; };
 		77C5A93E21BEE67D001FED21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				77C5A95621BEE6BF001FED21 /* ClosureWrapper.swift */,
 				77C5A93E21BEE67D001FED21 /* Info.plist */,
+				772C7CAD23A3E710008A0F58 /* UIBarButtonItem+UIHandlers.swift */,
 				77C5A95421BEE697001FED21 /* UIControl+UIHandlers.swift */,
 				77C5A95821BEE6E9001FED21 /* UIView+UIHandlers.swift */,
 				77C5A93D21BEE67D001FED21 /* UIHandlers.h */,
@@ -208,6 +211,7 @@
 			files = (
 				77C5A95921BEE6E9001FED21 /* UIView+UIHandlers.swift in Sources */,
 				77C5A95521BEE697001FED21 /* UIControl+UIHandlers.swift in Sources */,
+				772C7CAE23A3E710008A0F58 /* UIBarButtonItem+UIHandlers.swift in Sources */,
 				77C5A95721BEE6BF001FED21 /* ClosureWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +375,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brandon-erbschloe.ui-handlers";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -398,6 +403,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.brandon-erbschloe.ui-handlers";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

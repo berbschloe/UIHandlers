@@ -68,6 +68,44 @@ class UIHandlersTests: XCTestCase {
 
         XCTAssertEqual(view.handlers.count, 1)
     }
+    
+    func testBarButtonItemClick() {
+        
+        let exp = expectation(description: "Button Click")
+        
+        var barButtonItem: UIBarButtonItem?
+        
+        let handler: ((UIBarButtonItem) -> Void) = {
+            XCTAssertEqual(barButtonItem, $0)
+            exp.fulfill()
+        }
+        
+        barButtonItem = UIBarButtonItem(barButtonSystemItem: .action, handler: handler)
+        
+        guard let target = barButtonItem?.target, let action = barButtonItem?.action else {
+            XCTFail("Both target and action should not be nil")
+            return
+        }
+        
+        _ = target.perform(action, with: barButtonItem)
+
+        waitForExpectations(timeout: 0, handler: nil)
+    }
+    
+    func testBarButtonClearHandler() {
+        
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .add) { }
+        
+        XCTAssertNotNil(barButtonItem.action)
+        XCTAssertNotNil(barButtonItem.target)
+        XCTAssertNotNil(barButtonItem.handler)
+        
+        barButtonItem.clearHandler()
+        
+        XCTAssertNil(barButtonItem.action)
+        XCTAssertNil(barButtonItem.target)
+        XCTAssertNil(barButtonItem.handler)
+    }
 }
 
 /// Unfortunately, there's an apparent limitation in using `sendActionsForControlEvents` on unit-tests.
