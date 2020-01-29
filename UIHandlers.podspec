@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = "UIHandlers"
-    s.version = "1.4.0"
+    s.version = "1.5.0"
     s.summary = "Adds closure support to UIControls and UIViews with UIGestureRecognizers."
     s.homepage = "https://github.com/berbschloe/UIHandlers"
     s.license = "MIT"
