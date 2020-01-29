@@ -1,6 +1,6 @@
 # UIHandlers
 [![Swift](https://img.shields.io/badge/swift-5.0-orange.svg)](https://developer.apple.com/swift/)
-[![CocoaPods](https://img.shields.io/badge/pod-v1.4.0-blue.svg)](https://cocoapods.org/pods/UIHandlers)
+[![CocoaPods](https://img.shields.io/badge/pod-v1.5.0-blue.svg)](https://cocoapods.org/pods/UIHandlers)
 
 Adds closure support to UIControls and UIViews with UIGestureRecognizers.
 
