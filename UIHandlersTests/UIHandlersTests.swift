@@ -61,12 +61,13 @@ class UIHandlersTests: XCTestCase {
     func testGestureRecognizers() {
 
         let view = UIView()
-
+        var gesture: UITapGestureRecognizer!
+        
         _ = autoreleasepool {
-            view.addTapHandler { _ in }
+            gesture = view.addTapHandler { _ in }
         }
 
-        XCTAssertEqual(view.handlers.count, 1)
+        XCTAssertNotNil(gesture.handler)
     }
     
     func testBarButtonItemClick() {
@@ -90,6 +91,40 @@ class UIHandlersTests: XCTestCase {
         _ = target.perform(action, with: barButtonItem)
 
         waitForExpectations(timeout: 0, handler: nil)
+    }
+    
+    func testHandlerToken() {
+        let button = UIButton()
+        
+        let token = button.addHandler(for: .primaryActionTriggered) {
+            XCTFail("Should Never Happen")
+        }
+        
+        XCTAssertEqual(button.handlers.count, 1)
+        
+        token.cancel()
+        
+        button.sendActions(for: .primaryActionTriggered)
+        
+        XCTAssertTrue(button.handlers.isEmpty)
+        XCTAssertTrue(button.allTargets.isEmpty)
+    }
+    
+    func testRemovingAllHandlers() {
+        let button = UIButton()
+        
+        button.addHandler(for: .primaryActionTriggered) {
+            XCTFail("Should Never Happen")
+        }
+        
+        button.addHandler(for: .touchDown) {
+            XCTFail("Should Never Happen")
+        }
+        
+        button.removeAllEventHandlersAndTargets()
+        
+        button.sendActions(for: .allEvents)
+        XCTAssertTrue(button.handlers.isEmpty)
     }
     
     func testBarButtonClearHandler() {

@@ -26,7 +26,14 @@ import UIKit
 /// A base protocol that allows for `Self` to be used when adding handlers.
 public protocol ControlHandler {}
 
-extension UIControl: ControlHandler {}
+extension UIControl: ControlHandler {
+    
+    internal static var handlersKey: UInt8 = 0
+    internal var handlers: [AnyObject] {
+        get { return objc_getAssociatedObject(self, &UIControl.handlersKey) as? [AnyObject] ?? [] }
+        set { return objc_setAssociatedObject(self, &UIControl.handlersKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN) }
+    }
+}
 
 extension ControlHandler where Self: UIControl {
 
@@ -85,6 +92,12 @@ extension ControlHandler where Self: UIControl {
             for: controlEvents
         )
     }
+    
+    /// Removes all the targets and handlers for any given action from the control.
+    public func removeAllEventHandlersAndTargets() {
+        removeTarget(nil, action: nil, for: .allEvents)
+        handlers.removeAll()
+    }
 
     private func _addTarget(_ target: AnyObject, action: Selector, for controlEvents: UIControl.Event) -> HandlerToken {
         addTarget(target, action: action, for: controlEvents)
@@ -95,8 +108,8 @@ extension ControlHandler where Self: UIControl {
 
 public class HandlerToken {
 
-    private let control: UIControl
-    private let target: AnyObject
+    private weak var control: UIControl?
+    private weak var target: AnyObject?
     private let action: Selector
     private let controlEvents: UIControl.Event
 
@@ -108,7 +121,10 @@ public class HandlerToken {
     }
 
     /// Call this to stop receving events with the supplied control event.
-    public func removeTarget() {
+    public func cancel() {
+        guard let control = self.control, let target = self.target else {
+            return
+        }
         control.handlers.removeAll { $0 === target }
         control.removeTarget(target, action: action, for: controlEvents)
     }

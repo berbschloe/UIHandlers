@@ -155,9 +155,20 @@ extension UIView {
         let wrapper = ClosureWrapper1 {
             handler($0 as! T) //swiftlint:disable:this force_cast
         }
+        
         let recognizer = T(target: wrapper, action: #selector(ClosureWrapper1.invoke(arg:)))
+        recognizer.handler = wrapper
+        
         addGestureRecognizer(recognizer)
-        self.handlers += [wrapper]
+        
         return recognizer
+    }
+}
+
+extension UIGestureRecognizer {
+    internal static var handlerKey: UInt8 = 0
+    internal var handler: AnyObject? {
+        get { return objc_getAssociatedObject(self, &UIBarButtonItem.handlerKey) as AnyObject? }
+        set { objc_setAssociatedObject(self, &UIBarButtonItem.handlerKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN) }
     }
 }
