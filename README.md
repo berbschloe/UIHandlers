@@ -1,6 +1,6 @@
 # UIHandlers
 [![Swift](https://img.shields.io/badge/swift-5.0-orange.svg)](https://developer.apple.com/swift/)
-[![CocoaPods](https://img.shields.io/badge/pod-v1.5.0-blue.svg)](https://cocoapods.org/pods/UIHandlers)
+[![CocoaPods](https://img.shields.io/badge/pod-v1.6.0-blue.svg)](https://cocoapods.org/pods/UIHandlers)
 
 Adds closure support to UIControls and UIViews with UIGestureRecognizers.
 
@@ -17,7 +17,7 @@ Adds closure support to UIControls and UIViews with UIGestureRecognizers.
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate the library into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'UIHandlers', '1.5.0'
+pod 'UIHandlers', '1.6.0'
 ```
 
 ### Swift Package Manager
@@ -26,7 +26,7 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for au
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/berbschloe/UIHandlers.git", from: "1.5.0")
+    .package(url: "https://github.com/berbschloe/UIHandlers.git", from: "1.6.0")
 ]
 ```
 
