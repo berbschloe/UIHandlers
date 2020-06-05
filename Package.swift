@@ -3,26 +3,15 @@
 import PackageDescription
 
 let package = Package(
-  name: "UIHandlers",
-  platforms: [
-    .iOS(.v9)
-  ],
-  products: [
-    .library(
-      name: "UIHandlers",
-      targets: ["UIHandlers"]
-    ),
-  ],
-  targets: [
-    .target(
-      name: "UIHandlers",
-      path: "UIHandlers"
-    ),
-    .testTarget(
-      name: "UIHandlersTests",
-      dependencies: ["UIHandlers"],
-      path: "UIHandlersTests"
-    ),
-  ],
-  swiftLanguageVersions: [.v5]
+    name: "UIHandlers",
+    platforms: [
+        .iOS(.v11)
+    ],
+    products: [
+        .library(name: "UIHandlers", targets: ["UIHandlers"]),
+    ],
+    targets: [
+        .target(name: "UIHandlers", path: "UIHandlers"),
+        .testTarget(name: "UIHandlersTests", dependencies: ["UIHandlers"]),
+    ]
 )
