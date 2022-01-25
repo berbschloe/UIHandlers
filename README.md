@@ -106,7 +106,7 @@ func viewDidLoad() {
     
     let view = UIView()
     
-    view.addTapHandler() { [unowned self] in
+    view.addTapHandler { [unowned self] in
         self.doSomething()
     }
 }
@@ -116,7 +116,7 @@ func viewDidLoad() {
 
 ```swift
 // tap handler with paramater
-view.addTapHandler() { (gesture: UITapGestureRecognizer) in ... }
+view.addTapHandler { (gesture: UITapGestureRecognizer) in ... }
 
 // controling the number of taps
 view.addTapHandler(numberOfTapsRequired: 42) { ... }
@@ -125,11 +125,11 @@ view.addTapHandler(numberOfTapsRequired: 42) { ... }
 #### Other Suported Gesture Recognizers
 
 ```swift
-view.addDoubleTapHandler() { ... }
-view.addLongPressHandler() { ... }
-view.addPanHandler() { ... }
+view.addDoubleTapHandler { ... }
+view.addLongPressHandler { ... }
+view.addPanHandler { ... }
 view.addSwipeHandler(direction: .right) { ... }
-view.addPinchHandler() { ... }
-view.addRotationHandler() { ... }
+view.addPinchHandler { ... }
+view.addRotationHandler { ... }
 view.addScreenEdgePanHandler(edges: .right) { ... } 
 ```
